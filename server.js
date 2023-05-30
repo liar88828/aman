@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import userRoutes from "./routes/userRoutes.js";
+import { errorhandler, notFoundError } from "./middleware/errorMiddleware.js";
 
 dotenv.config()
 
@@ -13,6 +14,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', userRoutes)
+
+app.use(errorhandler)
+app.use(notFoundError)
+
 app.listen(port, () => {
 	console.log('server is running in localhost: ' + port)
 })
