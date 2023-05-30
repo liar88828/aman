@@ -1,0 +1,16 @@
+GET http://localhost:5000/
+
+###
+POST http://localhost:5000/api/user/
+
+###
+POST http://localhost:5000/api/user/auth
+
+###
+POST http://localhost:5000/api/user/logout
+
+###
+GET http://localhost:5000/api/user/profile
+
+###
+PUT http://localhost:5000/api/user/profile
