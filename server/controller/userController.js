@@ -22,8 +22,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Invalid Email Or Password");
   }
-
-  res.status(200).json({ message: "Auth User" });
+  // res.status(200).json({ message: "Auth User" });
 });
 
 // description	 register a new user
@@ -78,11 +77,18 @@ const logoutUser = asyncHandler(
 // description 	GET Profile user
 // route 				POST	 	/api/users/profile
 // access 			Private
-const profileUser = asyncHandler(
+const profileUserProfile = asyncHandler(
   async (req, res) => {
+    const user = {
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+    };
+    // console.log(user);
+
     // res.status(401)
     // throw  new Error('Something wrong ')
-    res.status(200).json({ message: "Profile User" });
+    res.status(200).json({ message: "Profile User", data: user });
   },
 );
 
@@ -91,10 +97,36 @@ const profileUser = asyncHandler(
 // access 			Private
 const updateProfileUSer = asyncHandler(
   async (req, res) => {
+    const user = await UserModel.findById(req.user._id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+      const updateHandler = await user.save();
+
+      res.status(200).json({
+        _id: updateHandler._id,
+        name: updateHandler.name,
+        email: updateHandler.email,
+      });
+      return;
+    } else {
+      res.status(404);
+      throw new Error("User Not Found");
+    }
     // res.status(401)
     // throw  new Error('Something wrong ')
     res.status(200).json({ message: "Update Profile User" });
   },
 );
 
-export { authUser, logoutUser, profileUser, registerUser, updateProfileUSer };
+export {
+  authUser,
+  logoutUser,
+  profileUserProfile,
+  registerUser,
+  updateProfileUSer,
+};

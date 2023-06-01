@@ -6,13 +6,13 @@ const notFoundError = (req, res, next) => {
 
 const errorhandler = (err, req, res, next) => {
 
-	let statisCode = res.statusCode === 200 ? 500 : res.statusCode
+	let staticCode = res.statusCode === 200 ? 500 : res.statusCode
 	let message = err.message
 	if ( err.name === 'CastError' && err.kind === 'ObjectId' ) {
-		statisCode = 404
+		staticCode = 404
 		message = 'Resource not found'
 	}
-	res.status(statisCode).json({
+	res.status(staticCode).json({
 		message,
 		stack: process.env.NODE_DEVELOPMENT === 'production' ? null : err.stack
 	})
