@@ -1,7 +1,12 @@
 GET http://localhost:5000/
 
 ###
-POST http://localhost:5000/api/user/
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+  "name": "Jone Doe"
+}
 
 ###
 POST http://localhost:5000/api/user/auth
