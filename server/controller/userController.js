@@ -67,6 +67,8 @@ const registerUser = asyncHandler(
 // access 			Public
 const logoutUser = asyncHandler(
   async (req, res) => {
+    res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+
     // res.status(401)
     // throw  new Error('Something wrong ')
     res.status(200).json({ message: "logout User" });
