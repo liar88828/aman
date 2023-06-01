@@ -12,6 +12,12 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/api/user/auth
+Content-Type: application/json
+
+{
+  "email": "olripwez@me.bg",
+  "password": "b0a8863f-740d-4518-8800-81e9a390d3ae"
+}
 
 ###
 POST http://localhost:5000/api/user/logout

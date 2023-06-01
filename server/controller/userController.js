@@ -5,14 +5,26 @@ import generateToken from "../utils/generateToken.js";
 // description	 user/set token
 // route POST	 	/api/users/auth
 // access 			Public
-const authUser = asyncHandler(
-  async (req, res) => {
-    
-    // res.status(401)
-    // throw  new Error('Something wrong ')
-    res.status(200).json({ message: "Auth User" });
-  },
-);
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await UserModel.findOne({ email });
+  // console.log(user);
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+
+    res.status(201).json({
+      message: "Login User",
+      data: { email: user.email },
+    });
+    return;
+  } else {
+    res.status(401);
+    throw new Error("Invalid Email Or Password");
+  }
+
+  res.status(200).json({ message: "Auth User" });
+});
 
 // description	 register a new user
 // route 				POST	 	/api/users/register
