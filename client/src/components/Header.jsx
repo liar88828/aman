@@ -1,28 +1,28 @@
-import { Container, Nav, Navbar, NavDropdown, } from "react-bootstrap";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useLogoutMutation } from "../lib/redux/usersApiSlice.js";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../lib/redux/authSlice.js";
-import { toast } from "react-toastify";
+import {Container, Nav, Navbar, NavDropdown,} from "react-bootstrap";
+import {FaSignInAlt, FaSignOutAlt} from "react-icons/fa";
+import {LinkContainer} from "react-router-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {useLogoutMutation} from "../lib/redux/usersApiSlice.js";
+import {useNavigate} from "react-router-dom";
+import {logout} from "../lib/redux/authSlice.js";
+import {toast} from "react-toastify";
 
 const Header = () => {
 
-	const { userInfo } = useSelector((state) => state.auth)
-	// console.log(userInfo.data.name)
+	const {userInfo} = useSelector((state) => state.auth)
+	// console.log(userInfo.name)
 
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const [ logoutApiCall ] = useLogoutMutation()
+	const [logoutApiCall] = useLogoutMutation()
 	const logoutHandler = async () => {
 		try {
 			await logoutApiCall().unwrap()
 			dispatch(logout())
 			navigate('/')
-			toast.info(`Success Logout ${ userInfo && userInfo.data.name }`)
-		} catch ( e ) {
+			toast.info(`Success Logout ${userInfo && userInfo.name}`)
+		} catch (e) {
 			console.log(e)
 		}
 	}
@@ -36,17 +36,18 @@ const Header = () => {
 						<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 						<Navbar.Collapse id="basic-navbar-nav">
 							<Nav className="ms-auto">
-								{ userInfo
+								{userInfo
 										? (
 												<NavDropdown
-														title={ userInfo && userInfo.data.name }
-														id={ 'username' }>
-													<LinkContainer to={ '/profile' }>
+														// title={'user'}
+														title={userInfo ? userInfo.name : ''}
+														id={'username'}>
+													<LinkContainer to={'/profile'}>
 														<NavDropdown.Item>
 															Profile
 														</NavDropdown.Item>
 													</LinkContainer>
-													<NavDropdown.Item onClick={ logoutHandler }>
+													<NavDropdown.Item onClick={logoutHandler}>
 														Logout
 													</NavDropdown.Item>
 												</NavDropdown>
@@ -64,7 +65,7 @@ const Header = () => {
 													</LinkContainer>
 												</>
 
-										) }
+										)}
 
 							</Nav>
 						</Navbar.Collapse>
