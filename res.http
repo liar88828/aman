@@ -1,17 +1,17 @@
 GET http://localhost:5000/
 
 ###
-POST http://localhost:5000/api/user/register
+POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-  "name": "Sylvia Cobb",
-  "email": "olripwez@me.bg",
-  "password": "b0a8863f-740d-4518-8800-81e9a390d3ae"
+  "name": "user1",
+  "email": "user1@test.com",
+  "password": "123"
 }
 
 ### LOGIN
-POST http://localhost:5000/api/user/auth
+POST http://localhost:5000/api/users/auth
 Content-Type: application/json
 
 {
@@ -20,10 +20,10 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:5000/api/user/logout
+POST http://localhost:5000/api/users/logout
 
 ###
-GET http://localhost:5000/api/user/profile
+GET http://localhost:5000/api/users/profile
 Content-Type: application/json
 Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDc4MjM0ZDExZTRhZWRlYWZhNjkxOTUiLCJpYXQiOjE2ODU1OTg0MjgsImV4cCI6MTY4ODE5MDQyOH0.iJeMHPGSJ4Q5sf5whUn3vxS2V5-jArsmMxcDGYDDBgI
 
@@ -31,12 +31,12 @@ Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDc4MjM0ZDExZTR
 
 
 ###
-PUT http://localhost:5000/api/user/profile
+PUT http://localhost:5000/api/users/profile
 Content-Type: application/json
 Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDc4MjM0ZDExZTRhZWRlYWZhNjkxOTUiLCJpYXQiOjE2ODU1OTg0MjgsImV4cCI6MTY4ODE5MDQyOH0.iJeMHPGSJ4Q5sf5whUn3vxS2V5-jArsmMxcDGYDDBgI
 
 {
-"name":"John",
-"email":"John@gmail.com",
-"password":"123"
+  "name": "John",
+  "email": "John@gmail.com",
+  "password": "123"
 }
