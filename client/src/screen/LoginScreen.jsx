@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { useLoginMutation } from "../lib/redux/usersApiSlice.js";
 import { setCredentials } from "../lib/redux/authSlice.js";
+import { toast } from "react-toastify";
 
 
 export const LoginScreen = () => {
@@ -29,9 +30,11 @@ export const LoginScreen = () => {
 		try {
 			const res = await login({ email, password }).unwrap()
 			dispatch(setCredentials({ ...res }))
+			toast.info('Success Login')
 			navigate('/')
 		} catch ( e ) {
-			console.log(e?.data?.message || e.error)
+			// console.log(e?.data?.message || e.error)
+			toast.error(e?.data?.message || e.error)
 		}
 	}
 	return (
