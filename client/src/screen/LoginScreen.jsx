@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLoginMutation } from "../lib/redux/usersApiSlice.js";
 import { setCredentials } from "../lib/redux/authSlice.js";
 import { toast } from "react-toastify";
+import { Loader } from "./loader.jsx";
 
 
 export const LoginScreen = () => {
@@ -30,8 +31,8 @@ export const LoginScreen = () => {
 		try {
 			const res = await login({ email, password }).unwrap()
 			dispatch(setCredentials({ ...res }))
-			toast.info(`Success Login ${ userInfo && userInfo.data.name }`)
 			navigate('/')
+			await toast.info(`Success Login `)
 		} catch ( e ) {
 			// console.log(e?.data?.message || e.error)
 			toast.error(e?.data?.message || e.error)
@@ -61,6 +62,8 @@ export const LoginScreen = () => {
 								onChange={ e => setPassword(e.target.value) }>
 						</Form.Control>
 					</Form.Group>
+
+					{ isLoading && <h2><Loader/></h2> }
 
 					<Button type={ 'submit' } variant={ 'primary' } className={ 'mt=3' }>
 						Sign In

@@ -1,12 +1,31 @@
 import { Container, Nav, Navbar, NavDropdown, } from "react-bootstrap";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "../lib/redux/usersApiSlice.js";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../lib/redux/authSlice.js";
+import { toast } from "react-toastify";
 
 const Header = () => {
 
 	const { userInfo } = useSelector((state) => state.auth)
 	// console.log(userInfo.data.name)
+
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
+	const [ logoutApiCall ] = useLogoutMutation()
+	const logoutHandler = async () => {
+		try {
+			await logoutApiCall().unwrap()
+			dispatch(logout())
+			navigate('/')
+			toast.info(`Success Logout ${ userInfo && userInfo.data.name }`)
+		} catch ( e ) {
+			console.log(e)
+		}
+	}
 	return (
 			<header>
 				<Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -27,7 +46,7 @@ const Header = () => {
 															Profile
 														</NavDropdown.Item>
 													</LinkContainer>
-													<NavDropdown.Item>
+													<NavDropdown.Item onClick={ logoutHandler }>
 														Logout
 													</NavDropdown.Item>
 												</NavDropdown>
