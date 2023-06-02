@@ -30,7 +30,7 @@ export const LoginScreen = () => {
 		try {
 			const res = await login({ email, password }).unwrap()
 			dispatch(setCredentials({ ...res }))
-			toast.info('Success Login')
+			toast.info(`Success Login ${ userInfo && userInfo.data.name }`)
 			navigate('/')
 		} catch ( e ) {
 			// console.log(e?.data?.message || e.error)
