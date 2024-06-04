@@ -30,7 +30,7 @@ export const LoginScreen = () => {
 		// console.log(e)
 		try {
 			const res = await login({ email, password }).unwrap()
-			dispatch(setCredentials({ ...res }))
+			dispatch(setCredentials({ ...res },{}))
 			navigate('/')
 			await toast.info(`Success Login `)
 		} catch ( e ) {
@@ -68,6 +68,7 @@ export const LoginScreen = () => {
 					<Button type={ 'submit' } variant={ 'primary' } className={ 'mt=3' }>
 						Sign In
 					</Button>
+
 					<Row className={ 'py-3' }>
 						<Col>Ready Have an Account? <Link to={ '/login' }>Login</Link>
 						</Col>

@@ -8,5 +8,12 @@
       <jdbc-url>mongodb://127.0.0.1:27018/?authSource=admin</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="tugas_uas@localhost" uuid="e194f9c1-30c4-4719-a838-f8ba8692ea8c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/tugas_uas</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
